@@ -26,6 +26,7 @@
           <th colspan="0"></th>
           <th>Title</th>
           <th>Opinion</th>
+          <th colspan="0"></th>
         </tr>
     </thead>
     <tbody>
@@ -43,6 +44,8 @@
             <% end %>
             </td>
           <td><%= book.body %></td>
+          <td>コメント数： <%= book.book_comments.count %></td>
+          
         </tr>
 
     <% end %>
