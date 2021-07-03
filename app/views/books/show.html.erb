@@ -6,7 +6,7 @@
   <div class="col-md-8 offset-md-1">
     <h2>Book detail</h2>
     <table class="table">
-    <tbody>
+    <tbody class ="BookShow">
         <tr>
           <td>
             <%= link_to user_path(@user) do %>
@@ -38,12 +38,31 @@
               </div>
             <% end %>
           </td>
+          <td>
+            コメント件数：<%= @books.book_comments.count %>
+          </td>
+          
+          <td>
+             <% if @books.favorited_by?(current_user) %>
+              <p><%= link_to book_favorites_path(@books.id), method: :delete do %>
+                  ♥<%= @books.favorites.count %> いいね
+                <% end %>
+              </p>
+      
+              <% else %>
+              <p><%= link_to book_favorites_path(@books.id), method: :post do %>
+                  ♡<%= @books.favorites.count %> いいね
+                <% end %>
+              </p>
+            <% end %>
+          </td>
+          
         </tr>
     </tbody>
     </table>
 
     <div class="comments">
-    <p>コメント件数：<%= @books.book_comments.count %></p>
+ 
      <table>
        <thead>
          <tr>
@@ -57,6 +76,7 @@
                 <%= attachment_image_tag book_comment.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br>
                 <%= book_comment.user.name %>
                 <% end %>
+              </td>
 
               <!--<td><%#= book_comment.created_at.strftime('%Y/%m/%d') %></td>-->
               <td><%= book_comment.comment %></td>
